@@ -1,0 +1,15 @@
+{
+  "pathToExcelData" : "Certificate Generator Data.xlsx",
+  "pathToTemplatePresentation" : "3. Template/Template.pptx",
+  "pathToTemplateMappingSpreadsheet" : "3. Template/Template Replacement Values.xlsx",
+  "pathToOutputFolder" : "4. Output",
+  "pathInTemplateToReplacementFile" : "ppt/slides/slide1.xml",
+  "fileNameFieldNameInData" : "Certificate File Name",
+  "populatedFileExtension" : ".pptx",
+  "folderGroupings" : [ {
+    "columnName" : "Course Name"
+  }, {
+    "columnName" : "Training Centre"
+  } ],
+  "deletePopulatedFile" : true
+}
