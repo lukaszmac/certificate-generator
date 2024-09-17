@@ -1,0 +1,99 @@
+plugins {
+    id 'java'
+    id 'application'
+
+    // Use GraalVM to build a native image that is standalone:
+    // https://www.graalvm.org/latest/reference-manual/native-image/#build-a-native-executable-using-maven-or-gradle
+    // https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
+
+    // Apply GraalVM Native Image plugin
+    id 'org.graalvm.buildtools.native' version '0.10.2'
+}
+
+group = 'io.nanovc.certificates'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+        vendor = JvmVendorSpec.GRAAL_VM
+    }
+}
+
+application {
+    mainClass = "io.nanovc.certificates.Main"
+}
+
+run {
+    args = ['-gc']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.dhatim:fastexcel-reader:0.18.0'
+
+    // This library is used for COM interop with ActiveX components, for Power Point Automation:
+    // https://github.com/freemansoft/jacob-project
+    implementation files('libs/freemansoft/jacob/jacob-1.21/jacob.jar')
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+
+
+    implementation 'net.lingala.zip4j:zip4j:2.11.5'
+
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Make sure that we add the Jacob library dependency for when we run:
+applicationDefaultJvmArgs = ["-Djava.library.path=${projectDir}/libs/freemansoft/jacob/jacob-1.21/"]
+
+// Make sure that we add the Jacob library dependency for when we run tests:
+tasks.withType(Test) {
+    systemProperty "java.library.path", "${projectDir}/libs/freemansoft/jacob/jacob-1.21/"
+}
+
+graalvmNative {
+    toolchainDetection = true
+
+    // https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#configuration-options
+    agent {
+        enabled = false
+        //enabled = true
+        modes {
+            standard
+        }
+    }
+
+    binaries {
+        main {
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(23)
+                vendor = JvmVendorSpec.GRAAL_VM
+            }
+
+
+            imageName = "certificate-generator"
+            mainClass = "io.nanovc.certificates.Main"
+            buildArgs.add("-O4")
+
+        }
+        test {
+            buildArgs.add("-O0")
+        }
+    }
+    binaries.all {
+        buildArgs.add("--verbose")
+    }
+}

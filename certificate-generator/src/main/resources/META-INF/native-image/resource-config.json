@@ -1,0 +1,26 @@
+{
+  "resources":{
+  "includes":[{
+    "pattern":"\\QMETA-INF/JacobVersion.properties\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/java.time.zone.ZoneRulesProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/java.util.spi.ResourceBundleControlProvider\\E"
+  }, {
+    "pattern":"\\Qcom/jacob/com/LibraryLoader.properties\\E"
+  }, {
+    "pattern":"\\Qcom/jacob/com/LibraryLoader_en.properties\\E"
+  }, {
+    "pattern":"\\Qcom/jacob/com/LibraryLoader_en_ZA.properties\\E"
+  }]},
+  "bundles":[{
+    "name":"com.jacob.com.LibraryLoader",
+    "locales":["en-ZA"]
+  }, {
+    "name":"sun.text.resources.cldr.FormatData",
+    "locales":["en", "en-US", "und"]
+  }, {
+    "name":"sun.util.resources.cldr.CalendarData",
+    "locales":["und"]
+  }]
+}

@@ -1,0 +1,19 @@
+[
+{
+  "name":"com.jacob.activeX.ActiveXComponent"
+},
+{
+  "name":"com.jacob.com.Dispatch",
+  "fields":[{"name":"m_pDispatch"}],
+  "methods":[{"name":"<init>","parameterTypes":["long"] }]
+},
+{
+  "name":"com.jacob.com.Variant",
+  "fields":[{"name":"m_pVariant"}],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Boolean",
+  "methods":[{"name":"getBoolean","parameterTypes":["java.lang.String"] }]
+}
+]
